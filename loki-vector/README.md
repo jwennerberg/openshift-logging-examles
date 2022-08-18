@@ -18,7 +18,7 @@ git checkout 5.5
 ### Deploy Loki
 
 ##### 1. Create an object store (s3) bucket
-##### 2. Create a `Secret` with s3 information 
+##### 2. Create a `Secret` with s3 information
 ```
 ./deploy-aws-s3-secret.sh
 oc apply -f lokistack.yaml
@@ -90,3 +90,39 @@ Enable the console plugin for the OpenShift Logging Operator to explore the logs
 Operators -> Installed Operators -> Red Hat OpenShift Logging
 ```
 On the right hand side click "Console plugin" and select "Enabled". Wait for the plugin to install and then refresh the console with the link in the popup notification
+
+### Verify installation
+
+
+Verify the Loki stack is up and running:
+
+```bash
+oc get pods -n openshift-logging -l app.kubernetes.io/instance=lokistack-dev
+NAME                                            READY   STATUS    RESTARTS   AGE
+lokistack-dev-compactor-0                       1/1     Running   0          3h28m
+lokistack-dev-distributor-6c4bc8b44-fl9jh       1/1     Running   0          3h28m
+lokistack-dev-gateway-5cb6c47496-6764p          2/2     Running   0          3h28m
+lokistack-dev-index-gateway-0                   1/1     Running   0          3h28m
+lokistack-dev-ingester-0                        1/1     Running   0          3h28m
+lokistack-dev-querier-68bd6f4cdf-2dtmn          1/1     Running   0          3h28m
+lokistack-dev-query-frontend-85c6c44746-85pg4   1/1     Running   0          3h28m
+lokistack-dev-ruler-0                           1/1     Running   0          3h28m
+```
+
+Verify `Vector` collector pods are running:
+
+```bash
+oc get pods -n openshift-logging -l component=collector
+NAME              READY   STATUS    RESTARTS   AGE
+collector-cn6sr   2/2     Running   0          3h25m
+collector-dm277   2/2     Running   0          3h25m
+collector-rj8cj   2/2     Running   0          3h25m
+collector-stgd2   2/2     Running   0          3h25m
+collector-txtcr   2/2     Running   0          3h25m
+collector-w7sn9   2/2     Running   0          3h25m
+collector-wvwrk   2/2     Running   0          3h25m
+```
+
+Veriy log exlortation in the OpenShift Console:
+
+
