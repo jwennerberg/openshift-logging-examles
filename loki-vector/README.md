@@ -21,10 +21,13 @@ git checkout 5.5
 ##### 2. Create a `Secret` with s3 information
 ```
 ./deploy-aws-s3-secret.sh
-oc apply -f lokistack.yaml
 ```
 
 ##### 3. Create a `LokiStack` CR
+
+```bash
+oc apply -f lokistack.yaml
+```
 
 ```yaml
 apiVersion: loki.grafana.com/v1beta1
@@ -60,7 +63,7 @@ spec:
 
 Create a `ClusterLogging` CR referencing the LokiStack as a Log store and `vector` as a collector.
 
-```
+```bash
 oc apply -f clusterlogging.yaml
 ```
 
