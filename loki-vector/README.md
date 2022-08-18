@@ -97,7 +97,7 @@ On the right hand side click "Console plugin" and select "Enabled". Wait for the
 ### Verify installation
 
 
-Verify the Loki stack is up and running:
+Verify that the Loki stack is up and running:
 
 ```bash
 oc get pods -n openshift-logging -l app.kubernetes.io/instance=lokistack-dev
@@ -112,7 +112,7 @@ lokistack-dev-query-frontend-85c6c44746-85pg4   1/1     Running   0          3h2
 lokistack-dev-ruler-0                           1/1     Running   0          3h28m
 ```
 
-Verify `Vector` collector pods are running:
+Verify that `Vector` collector pods are running:
 
 ```bash
 oc get pods -n openshift-logging -l component=collector
@@ -126,6 +126,7 @@ collector-w7sn9   2/2     Running   0          3h25m
 collector-wvwrk   2/2     Running   0          3h25m
 ```
 
-Veriy log exlortation in the OpenShift Console:
+Veriy log exploration in the OpenShift Console:
 
+<img width="1000" alt="logging-console-plugin" src="https://user-images.githubusercontent.com/4189904/185391043-4451a9cd-fef1-4055-aa3c-cc2287cdf0be.png">
 
