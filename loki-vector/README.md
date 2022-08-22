@@ -4,33 +4,31 @@ Quick howto on configuring OpenShift Logging with Vector as a collector and Loki
 
 ### Install Operators
 
-##### 1. Install Loki Operator
-##### 2. Install OpenShift Logging Operator 5.5
+##### 1. Install Loki Operator 5.5+
+##### 2. Install OpenShift Logging Operator 5.5+
 
-Until OpenShift Logging 5.5 is GA and available in the Operator Hub you can install it from the upstream repository.
-```
-git clone https://github.com/openshift/cluster-logging-operator.git
-git checkout 5.5
-./olm_deploy/scripts/catalog-deploy.sh
-./olm_deploy/scripts/operator-install.sh
+```bash
+oc apply -k deploy/operators/
 ```
 
 ### Deploy Loki
 
 ##### 1. Create an object store (s3) bucket
-##### 2. Create a `Secret` with s3 information
+##### 2. Create a `Secret` with s3 bucket information
+
+Example script for configuring it on AWS:
 ```
-./deploy-aws-s3-secret.sh
+./aws-s3-secret.sh
 ```
 
 ##### 3. Create a `LokiStack` CR
 
 ```bash
-oc apply -f lokistack.yaml
+oc apply -f deploy/lokistack.yaml -n openshift-logging
 ```
 
 ```yaml
-apiVersion: loki.grafana.com/v1beta1
+apiVersion: loki.grafana.com/v1
 kind: LokiStack
 metadata:
   name: lokistack-dev
@@ -64,7 +62,7 @@ spec:
 Create a `ClusterLogging` CR referencing the LokiStack as a Log store and `vector` as a collector.
 
 ```bash
-oc apply -f clusterlogging.yaml
+oc apply -f deploy/clusterlogging.yaml -n openshift-logging
 ```
 
 ```yaml
