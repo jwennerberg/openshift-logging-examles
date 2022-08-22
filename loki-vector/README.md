@@ -126,7 +126,7 @@ collector-w7sn9   2/2     Running   0          3h25m
 collector-wvwrk   2/2     Running   0          3h25m
 ```
 
-Veriy log exploration in the OpenShift Console:
+Verify log exploration in the OpenShift Console:
 
 <img width="1000" alt="logging-console-plugin" src="https://user-images.githubusercontent.com/4189904/185391043-4451a9cd-fef1-4055-aa3c-cc2287cdf0be.png">
 
