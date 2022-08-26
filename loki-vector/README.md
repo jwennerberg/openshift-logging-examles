@@ -2,7 +2,34 @@
 
 Quick howto on configuring OpenShift Logging with Vector as a collector and Loki as a log store.
 
-### Install Operators
+### Automated installation
+
+1. Create s3 bucket
+2. Configure s3 env file for your environment
+
+```
+cat deploy/lokistack/env-s3
+```
+
+```
+bucketnames=loki-logging
+region=us-east-2
+access_key_id=foo
+access_key_secret=bar
+endpoint=https://s3.us-east-2.amazonaws.com
+```
+
+3. Deploy!
+
+```bash
+./deploy.sh
+```
+
+4. [Verify](#verify-installation)
+
+### (Semi) Manual installation
+
+#### Install Operators
 
 ##### 1. Install Loki Operator 5.5+
 ##### 2. Install OpenShift Logging Operator 5.5+
@@ -11,20 +38,20 @@ Quick howto on configuring OpenShift Logging with Vector as a collector and Loki
 oc apply -k deploy/operators/
 ```
 
-### Deploy Loki
+#### Deploy Loki
 
-##### 1. Create an object store (s3) bucket
+##### 1. Create a s3 bucket
 ##### 2. Create a `Secret` with s3 bucket information
 
 Example script for configuring it on AWS:
 ```
-./aws-s3-secret.sh
+./deploy/aws-s3-secret.sh BUCKET-NAME
 ```
 
 ##### 3. Create a `LokiStack` CR
 
 ```bash
-oc apply -f deploy/lokistack.yaml -n openshift-logging
+oc apply -f deploy/lokistack/lokistack.yaml -n openshift-logging
 ```
 
 ```yaml
@@ -55,14 +82,14 @@ spec:
         openshift.io/cluster-monitoring: "true"
 ```
 
-### Deploy Cluster Logging components
+#### Deploy Cluster Logging components
 
 ##### 1. ClusterLogging CR
 
 Create a `ClusterLogging` CR referencing the LokiStack as a Log store and `vector` as a collector.
 
 ```bash
-oc apply -f deploy/clusterlogging.yaml -n openshift-logging
+oc apply -f deploy/clusterlogging/clusterlogging.yaml -n openshift-logging
 ```
 
 ```yaml

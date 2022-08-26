@@ -8,9 +8,9 @@ spec:
   storage:
     schemas:
     - version: v12
-      effectiveDate: 2022-06-01
+      effectiveDate: "2022-06-01"
     secret:
-      name: loki-aws-s3
+      name: loki-logging-s3
       type: s3
   storageClassName: gp2
   tenants:

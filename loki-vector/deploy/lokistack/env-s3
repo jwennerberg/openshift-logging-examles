@@ -1,0 +1,5 @@
+bucketnames=loki-adabfaf1-6f4d-4d81-9ad5-f9673f84949b
+region=us-east-2
+access_key_id=NFiBFEv98Mj5UBjyRJtS
+access_key_secret=YYrO+5D7JVsG8ME2ZMULQ4PRJv3XLMEjWzjttFd7
+endpoint=https://s3.openshift-storage.svc
